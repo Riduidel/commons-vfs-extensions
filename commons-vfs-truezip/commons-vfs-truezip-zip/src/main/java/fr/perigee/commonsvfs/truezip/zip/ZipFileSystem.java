@@ -10,16 +10,12 @@ import org.apache.commons.vfs2.FileSystemOptions;
 import org.apache.commons.vfs2.provider.AbstractFileName;
 import org.apache.commons.vfs2.provider.AbstractFileSystem;
 
-import de.schlichtherle.truezip.file.TArchiveDetector;
 
 public class ZipFileSystem extends AbstractFileSystem implements FileSystem {
 
 
-	private TArchiveDetector archiveDector;
-
-	protected ZipFileSystem(FileName rootName, FileObject parent, FileSystemOptions fileSystemOptions, TArchiveDetector tArchiveDetector) {
+	protected ZipFileSystem(FileName rootName, FileObject parent, FileSystemOptions fileSystemOptions) {
 		super(rootName, parent, fileSystemOptions);
-		this.archiveDector = tArchiveDetector;
 	}
 
 	@Override
@@ -35,13 +31,4 @@ public class ZipFileSystem extends AbstractFileSystem implements FileSystem {
     {
         caps.addAll(ZipFileProvider.capabilities);
     }
-
-	/**
-	 * @return the archiveDector
-	 * @category getter
-	 * @category archiveDector
-	 */
-	public TArchiveDetector getArchiveDector() {
-		return archiveDector;
-	}
 }

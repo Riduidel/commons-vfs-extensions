@@ -33,7 +33,7 @@ public class ZipFileObject extends AbstractFileObject implements FileObject {
 	private TFile getFile() {
 		if(file==null) {
 			String fullPath = containerZip.getName().getFriendlyURI()+getName().getPath();
-			file = new TFile(fullPath, ((ZipFileSystem) getFileSystem()).getArchiveDector());
+			file = new TFile(fullPath);
 		}
 		return file;
 	}
