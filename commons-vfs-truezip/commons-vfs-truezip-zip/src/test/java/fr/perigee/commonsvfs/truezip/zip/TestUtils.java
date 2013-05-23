@@ -20,7 +20,7 @@ public class TestUtils {
 	 * @throws URISyntaxException
 	 */
 	public static File getZipFile() throws URISyntaxException {
-		URL testZipUrl = CanReadZip.class.getClassLoader().getResource("testzip.zip");
+		URL testZipUrl = CanReadZipTest.class.getClassLoader().getResource("testzip.zip");
 		File testZipFile = new File(testZipUrl.toURI());
 		return testZipFile;
 	}

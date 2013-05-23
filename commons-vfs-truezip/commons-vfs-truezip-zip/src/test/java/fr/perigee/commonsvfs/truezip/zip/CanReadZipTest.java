@@ -9,13 +9,14 @@ import org.apache.commons.vfs2.FileType;
 import org.apache.commons.vfs2.VFS;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsNot;
+import org.hamcrest.core.IsNull;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.assertThat;
 
-public class CanReadZip {
+public class CanReadZipTest {
 	private static FileSystemManager manager;
 	
 	@BeforeClass
@@ -62,6 +63,7 @@ public class CanReadZip {
 			if(child.getName().getBaseName().startsWith("A")) {
 				assertThat(child.getContent().getSize(), IsNot.not(0l));
 				String type = child.getContent().getContentInfo().getContentType();
+				assertThat(type, IsNull.notNullValue());
 			}
 		}
 	}
