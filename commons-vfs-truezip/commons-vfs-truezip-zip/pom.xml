@@ -28,6 +28,11 @@
 			<artifactId>truezip-driver-zip</artifactId>
 			<version>${truezip.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

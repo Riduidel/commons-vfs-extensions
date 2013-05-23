@@ -9,6 +9,7 @@ import org.apache.commons.vfs2.provider.AbstractFileObject;
 import org.apache.commons.vfs2.provider.AbstractFileSystem;
 
 import de.schlichtherle.truezip.file.TFile;
+import de.schlichtherle.truezip.file.TFileInputStream;
 
 public class ZipFileObject extends AbstractFileObject implements FileObject {
 	private static final String MIME_DIRECTORY = "httpd/unix-directory";
@@ -61,8 +62,7 @@ public class ZipFileObject extends AbstractFileObject implements FileObject {
 
 	@Override
 	protected InputStream doGetInputStream() throws Exception {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("method "+AbstractFileObject.class.getName()+"#doGetInputStream has not yet been implemented AT ALL");
+		return new TFileInputStream(getFile());
 	}
 	
 	

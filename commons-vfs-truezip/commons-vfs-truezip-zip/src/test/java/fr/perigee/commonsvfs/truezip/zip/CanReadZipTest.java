@@ -1,7 +1,9 @@
 package fr.perigee.commonsvfs.truezip.zip;
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.vfs2.FileObject;
 import org.apache.commons.vfs2.FileSystemException;
 import org.apache.commons.vfs2.FileSystemManager;
@@ -55,7 +57,7 @@ public class CanReadZipTest {
 	}
 
 	@Test
-	public void canReadFileNamedA() throws URISyntaxException, FileSystemException {
+	public void canReadFileNamedA() throws URISyntaxException, IOException {
 		FileObject loaded = getFileObject();
 		FileObject[] children = loaded.getChildren();
 		assertThat(children.length, IsNot.not(0));
@@ -64,6 +66,8 @@ public class CanReadZipTest {
 				assertThat(child.getContent().getSize(), IsNot.not(0l));
 				String type = child.getContent().getContentInfo().getContentType();
 				assertThat(type, IsNull.notNullValue());
+				String text = IOUtils.toString(child.getContent().getInputStream());
+				assertThat(text, Is.is(TestUtils.FILE_A_TEXT));
 			}
 		}
 	}
