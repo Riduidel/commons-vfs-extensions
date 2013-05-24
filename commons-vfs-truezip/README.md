@@ -18,3 +18,10 @@ Insert (and create, if it is not yet the case) a vfs-providers.xml file containi
 And make sure CommonsVFS is loaded with this configuration file, and it will work.
 
 **ATTENTION** : do not forget to comment default zip file system provider !
+
+Notice that, if you want to be able to create zip files, you have to keep the LocalFileProvider as is :
+
+ 	<provider
+		class-name="org.apache.commons.vfs2.provider.local.DefaultLocalFileProvider">
+		<scheme name="file" />
+	</provider>

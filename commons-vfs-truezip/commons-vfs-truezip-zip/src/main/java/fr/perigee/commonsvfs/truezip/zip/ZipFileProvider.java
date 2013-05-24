@@ -49,7 +49,7 @@ public class ZipFileProvider  extends AbstractLayeredFileProvider implements Fil
         Capability.URI,
         Capability.WRITE_CONTENT,
         Capability.GET_LAST_MODIFIED,
-        Capability.ATTRIBUTES,
+//        Capability.ATTRIBUTES,
 //        Capability.RANDOM_ACCESS_READ,
         Capability.DIRECTORY_READ_CONTENT,
     }));

@@ -21,6 +21,7 @@
 	</licenses>
 
 	<properties>
+		<cobertura.version>2.5.2</cobertura.version>
 		<commons-vfs.version>2.0</commons-vfs.version>
 		<!-- used for github pages maven site generation -->
 		<github.global.server>github</github.global.server>

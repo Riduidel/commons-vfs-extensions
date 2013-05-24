@@ -44,6 +44,4 @@ public class TestUtils {
 		manager.init();
 		return manager;
 	}
-
-	static final String FILE_A_TEXT = "A text";
 }

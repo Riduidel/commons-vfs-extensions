@@ -12,11 +12,10 @@
 	<default-provider
 		class-name="org.apache.commons.vfs2.provider.url.UrlFileProvider">
 	</default-provider>
-<!-- 	<provider
+ 	<provider
 		class-name="org.apache.commons.vfs2.provider.local.DefaultLocalFileProvider">
 		<scheme name="file" />
 	</provider>
- -->
  	<provider class-name="fr.perigee.commonsvfs.truezip.zip.ZipFileProvider">
 		<scheme name="zip" />
 	</provider>

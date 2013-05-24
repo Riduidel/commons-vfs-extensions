@@ -1,8 +1,13 @@
 package fr.perigee.commonsvfs.truezip.zip;
 
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Map;
 
+import org.apache.commons.vfs2.FileContent;
 import org.apache.commons.vfs2.FileObject;
+import org.apache.commons.vfs2.FileSelector;
+import org.apache.commons.vfs2.FileSystemException;
 import org.apache.commons.vfs2.FileType;
 import org.apache.commons.vfs2.provider.AbstractFileName;
 import org.apache.commons.vfs2.provider.AbstractFileObject;
@@ -10,11 +15,10 @@ import org.apache.commons.vfs2.provider.AbstractFileSystem;
 
 import de.schlichtherle.truezip.file.TFile;
 import de.schlichtherle.truezip.file.TFileInputStream;
+import de.schlichtherle.truezip.file.TFileOutputStream;
+import de.schlichtherle.truezip.file.TVFS;
 
 public class ZipFileObject extends AbstractFileObject implements FileObject {
-	private static final String MIME_DIRECTORY = "httpd/unix-directory";
-	private ZipFileSystemConfigBuilder builder;
-	private String urlCharset;
 	/**
 	 * Container zip, from which the file will be built
 	 */
@@ -24,11 +28,9 @@ public class ZipFileObject extends AbstractFileObject implements FileObject {
 	 */
 	private TFile file;
 
-	public ZipFileObject(AbstractFileName name, FileObject fileObject, ZipFileSystem fileSystem) {
+	public ZipFileObject(AbstractFileName name, FileObject parent, ZipFileSystem fileSystem) {
 		super(name, fileSystem);
-		this.containerZip = fileObject;
-        builder = (ZipFileSystemConfigBuilder) ZipFileSystemConfigBuilder.getInstance();
-        this.urlCharset = builder.getUrlCharset(getFileSystem().getFileSystemOptions());
+		this.containerZip = parent;
 	}
 	
 	private TFile getFile() {
@@ -41,11 +43,16 @@ public class ZipFileObject extends AbstractFileObject implements FileObject {
 
 	@Override
 	protected FileType doGetType() throws Exception {
-		if(getFile().isDirectory()) {
-			return FileType.FOLDER;
-		} else if(getFile().isFile()){
-			return FileType.FILE;
+		if(getFile().exists()) {
+			if(getFile().isDirectory()) {
+				return FileType.FOLDER;
+			} else if(getFile().isFile()){
+				return FileType.FILE;
+			} else {
+				return FileType.IMAGINARY;
+			}
 		} else {
+			// ahve to return imaginary when file doesn't exist ... strange
 			return FileType.IMAGINARY;
 		}
 	}
@@ -65,5 +72,53 @@ public class ZipFileObject extends AbstractFileObject implements FileObject {
 		return new TFileInputStream(getFile());
 	}
 	
+	/**
+	 * Lazy load file by calling the {@link #getFile()} method
+	 * @throws Exception
+	 * @see org.apache.commons.vfs2.provider.AbstractFileObject#doAttach()
+	 */
+	@Override
+	protected void doAttach() throws Exception {
+		getFile();
+	}
 	
+	@Override
+	protected void doDelete() throws Exception {
+		getFile().rm();
+	}
+	
+	@Override
+	protected long doGetLastModifiedTime() throws Exception {
+		return getFile().lastModified();
+	}
+	
+	@Override
+	protected OutputStream doGetOutputStream(boolean bAppend) throws Exception {
+		return new TFileOutputStream(getFile(), bAppend);
+	}
+	
+	@Override
+	protected void doCreateFolder() throws Exception {
+		getFile().mkdir(true);
+	}
+	
+	@Override
+	protected boolean doIsHidden() throws Exception {
+		return getFile().isHidden();
+	}
+	
+	@Override
+	protected boolean doIsReadable() throws Exception {
+		return getFile().canRead();
+	}
+	
+	@Override
+	protected boolean doIsWriteable() throws Exception {
+		return getFile().canWrite();
+	}
+	
+	@Override
+	protected void doDetach() throws Exception {
+		TVFS.umount(getFile());
+	}
 }

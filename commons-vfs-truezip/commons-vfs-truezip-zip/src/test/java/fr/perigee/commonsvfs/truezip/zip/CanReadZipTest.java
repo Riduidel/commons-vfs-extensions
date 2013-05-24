@@ -9,6 +9,8 @@ import org.apache.commons.vfs2.FileSystemException;
 import org.apache.commons.vfs2.FileSystemManager;
 import org.apache.commons.vfs2.FileType;
 import org.apache.commons.vfs2.VFS;
+import org.apache.commons.vfs2.operations.FileOperation;
+import org.apache.commons.vfs2.operations.FileOperations;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsNot;
 import org.hamcrest.core.IsNull;
@@ -16,38 +18,33 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+
 import static org.junit.Assert.assertThat;
 
-public class CanReadZipTest {
-	private static FileSystemManager manager;
-	
-	@BeforeClass
-	public static void loadManager() throws FileSystemException {
-		manager = TestUtils.createFileSystemManager();
-	}
-
+public class CanReadZipTest extends AbstractCommonsVFSZipTest {
 	@Test
 	public void canReadAFile() throws URISyntaxException, FileSystemException {
-		FileObject loaded = getFileObject();
+		FileObject loaded = getFileObject(manager);
 		assertThat(loaded.exists(), Is.is(true));
 		assertThat(loaded, Is.is(ZipFileObject.class));
 	}
+	
 	@Test
 	public void zipFileIsConsideredAsAFolder() throws URISyntaxException, FileSystemException {
-		FileObject loaded = getFileObject();
+		FileObject loaded = getFileObject(manager);
 		assertThat(loaded.getType(), Is.is(FileType.FOLDER));
 	}
 
 	@Test
 	public void canListFileContent() throws URISyntaxException, FileSystemException {
-		FileObject loaded = getFileObject();
+		FileObject loaded = getFileObject(manager);
 		FileObject[] children = loaded.getChildren();
 		assertThat(children.length, IsNot.not(0));
 	}
 
 	@Test
 	public void canGetFileSize() throws URISyntaxException, FileSystemException {
-		FileObject loaded = getFileObject();
+		FileObject loaded = getFileObject(manager);
 		FileObject[] children = loaded.getChildren();
 		assertThat(children.length, IsNot.not(0));
 		for(FileObject child : children) {
@@ -58,30 +55,23 @@ public class CanReadZipTest {
 
 	@Test
 	public void canReadFileNamedA() throws URISyntaxException, IOException {
-		FileObject loaded = getFileObject();
+		FileObject loaded = getFileObject(manager);
 		FileObject[] children = loaded.getChildren();
 		assertThat(children.length, IsNot.not(0));
-		for(FileObject child : children) {
-			if(child.getName().getBaseName().startsWith("A")) {
-				assertThat(child.getContent().getSize(), IsNot.not(0l));
-				String type = child.getContent().getContentInfo().getContentType();
-				assertThat(type, IsNull.notNullValue());
-				String text = IOUtils.toString(child.getContent().getInputStream());
-				assertThat(text, Is.is(TestUtils.FILE_A_TEXT));
-			}
-		}
+		FileObject aFile = loaded.getChild(TestConstants.FILE_A_NAME);
+		assertThat(aFile.getContent().getSize(), IsNot.not(0l));
+		String type = aFile.getContent().getContentInfo().getContentType();
+		assertThat(type, IsNull.notNullValue());
+		String text = IOUtils.toString(aFile.getContent().getInputStream());
+		assertThat(text, Is.is(TestConstants.FILE_A_TEXT));
 	}
-
-	private FileObject getFileObject() throws URISyntaxException, FileSystemException {
-		File testZipFile = TestUtils.getZipFile();
-		// Notice the weird pattern : to address a publicly visible file, one has to write
-		// zip:file://
-		// that's what commons-vfs calls layered file provider
-		// And the "/" at end denotes we want the directory inside the zip
-		String path = "zip:"+TestUtils.getZipFile().toURI();
-		FileObject loaded = manager.resolveFile(path);
-		return loaded;
-	}
-
 	
+	@Test
+	public void getAttributesIsNotSupportedInZipFile() throws Exception {
+		FileObject loaded = getFileObject(manager);
+		assertThat(loaded.exists(), Is.is(true));
+		String[] attributes = loaded.getContent().getAttributeNames();
+		assertThat(attributes.length, Is.is(0));
+		
+	}
 }
