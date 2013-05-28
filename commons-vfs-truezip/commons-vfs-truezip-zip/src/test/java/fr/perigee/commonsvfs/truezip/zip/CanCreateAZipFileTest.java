@@ -5,9 +5,8 @@ import java.io.OutputStream;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.vfs2.AllFileSelector;
 import org.apache.commons.vfs2.FileObject;
-import org.apache.commons.vfs2.FileType;
 import org.hamcrest.core.Is;
-import org.hamcrest.core.IsNot;
+import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -21,6 +20,11 @@ public class CanCreateAZipFileTest extends AbstractCommonsVFSZipTest {
 		File normalZipFile = TestUtils.getZipFile();
 		File folder = normalZipFile.getParentFile();
 		createdZiPFile = new File(folder, CanCreateAZipFileTest.class.getSimpleName()+".zip");
+	}
+	
+	@After
+	public void deleteZipFile() {
+		createdZiPFile.delete();
 	}
 	
 	@Test
