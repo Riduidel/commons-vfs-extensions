@@ -68,12 +68,6 @@ public class ZipFileProvider  extends AbstractLayeredFileProvider implements Fil
 	
 	@Override
 	protected FileSystem doCreateFileSystem(String scheme, FileObject file, FileSystemOptions fileSystemOptions) throws FileSystemException {
-		TConfig.get().setArchiveDetector(
-				        new TArchiveDetector(
-				            TArchiveDetector.NULL,
-				            new Object[][] {
-				                { "zip", new ZipDriver(IOPoolLocator.SINGLETON)},
-				            }));
         final AbstractFileName rootName =
         	            new LayeredFileName(scheme, file.getName(), FileName.ROOT_PATH, FileType.FOLDER);
 		return new ZipFileSystem(rootName, file, fileSystemOptions);
