@@ -3,10 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.perigee</groupId>
 	<artifactId>commons-vfs-extensions</artifactId>
+	<name>Commons-VFS extensions</name>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
 	<description>Some extensions allowing usage of other libraries as Commons-VFS alternative backends</description>
 	<url>https://github.com/Riduidel/commons-vfs-extensions/</url>
+	<packaging>pom</packaging>
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
 		<artifactId>oss-parent</artifactId>
@@ -19,7 +20,6 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-
 	<properties>
 		<cobertura.version>2.5.2</cobertura.version>
 		<commons-vfs.version>2.0</commons-vfs.version>
@@ -32,7 +32,7 @@
 	</modules>
 	<issueManagement>
 		<system>GitHub</system>
-		<url>https://github.com/Riduidel/gaedo/issues</url>
+		<url>https://github.com/Riduidel/commons-vfs-extensions/issues</url>
 	</issueManagement>
 	<developers>
 		<developer>
@@ -315,4 +315,5 @@
 			</build>
 		</profile>
 	</profiles>
+
 </project>
