@@ -15,6 +15,7 @@ import org.apache.commons.vfs2.FileSystemOptions;
 import org.apache.commons.vfs2.UserAuthenticationData;
 import org.apache.commons.vfs2.provider.AbstractOriginatingFileProvider;
 import org.apache.commons.vfs2.util.UserAuthenticatorUtils;
+import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.googlecode.sardine.Sardine;
@@ -80,8 +81,7 @@ public class WebdavFileProvider extends AbstractOriginatingFileProvider {
 			        UserAuthenticationData.USERNAME, UserAuthenticatorUtils.toChar(rootName.getUserName())));
 			String password = UserAuthenticatorUtils.toString(UserAuthenticatorUtils.getData(authData,
 			        UserAuthenticationData.PASSWORD, UserAuthenticatorUtils.toChar(rootName.getPassword())));
-            sardine = SardineFactory.begin(username, password);
-            WebdavFileSystem returned = new WebdavFileSystem(rootName, sardine, fsOpts);
+            WebdavFileSystem returned = new WebdavFileSystem(rootName, createSardine(username, password), fsOpts);
             // TODO find a way to make sure server filesystem is OK
             return returned;
         }
@@ -91,7 +91,16 @@ public class WebdavFileProvider extends AbstractOriginatingFileProvider {
         }
     }
 
-    @Override
+    /**
+     * Create a sardine instance with the given auth and the right set of http params (including the crazy timeouts)
+     * @param username
+     * @param password
+     * @return
+     */
+    private Sardine createSardine(String username, String password) {
+    	return new TimedSardineImpl(username, password);
+	}
+	@Override
     public FileSystemConfigBuilder getConfigBuilder()
     {
         return WebdavFileSystemConfigBuilder.getInstance();
