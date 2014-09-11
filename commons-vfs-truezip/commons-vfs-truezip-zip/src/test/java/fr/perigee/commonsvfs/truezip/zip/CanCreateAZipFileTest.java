@@ -7,6 +7,7 @@ import org.apache.commons.vfs2.AllFileSelector;
 import org.apache.commons.vfs2.FileObject;
 import org.hamcrest.core.Is;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -20,10 +21,16 @@ public class CanCreateAZipFileTest extends AbstractCommonsVFSZipTest {
 		File normalZipFile = TestUtils.getZipFile();
 		File folder = normalZipFile.getParentFile();
 		createdZiPFile = new File(folder, CanCreateAZipFileTest.class.getSimpleName()+".zip");
+		deleteZipFile();
 	}
 	
 	@After
-	public void deleteZipFile() {
+	public void deleteBetweenTests() {
+		deleteZipFile();
+	}
+	
+	@AfterClass
+	public static void deleteZipFile() {
 		createdZiPFile.delete();
 	}
 	
