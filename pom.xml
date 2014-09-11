@@ -3,7 +3,7 @@
 	<groupId>fr.perigee</groupId>
 	<artifactId>commons-vfs-extensions</artifactId>
 	<name>Commons-VFS extensions</name>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.5</version>
 	<description>Some extensions allowing usage of other libraries as Commons-VFS alternative backends</description>
 	<url>https://github.com/Riduidel/commons-vfs-extensions/</url>
 	<packaging>pom</packaging>
