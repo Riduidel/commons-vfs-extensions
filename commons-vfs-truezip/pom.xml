@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>fr.perigee</groupId>
 		<artifactId>commons-vfs-extensions</artifactId>
-		<version>0.0.3-SNAPSHOT</version>
+		<version>0.0.3</version>
 	</parent>
 	<artifactId>commons-vfs-truezip</artifactId>
 	<description>A commons VFS archive file system using TrueZip to allow R/W operations on zips. According to modular TrueZip nature, this project is also modular, allowing one to use only required compoent (which will pull the right TrueZip dependency tree).</description>
