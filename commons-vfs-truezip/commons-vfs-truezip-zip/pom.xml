@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>fr.perigee</groupId>
 		<artifactId>commons-vfs-truezip</artifactId>
-		<version>0.0.3</version>
+		<version>0.0.3-SNAPSHOT</version>
 	</parent>
 	<artifactId>commons-vfs-truezip-zip</artifactId>
 	<description>R/W operations in ZIP files using Commons-VFS architecture and TrueZip backend</description>
