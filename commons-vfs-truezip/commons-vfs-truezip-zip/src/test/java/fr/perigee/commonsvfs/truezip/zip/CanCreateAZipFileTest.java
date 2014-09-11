@@ -37,7 +37,9 @@ public class CanCreateAZipFileTest extends AbstractCommonsVFSZipTest {
 	@Test
 	public void canCreateZipFileAndPutSomeContentIn() throws Exception {
 		FileObject newZip = getFileObjectFrom(manager, createdZiPFile);
-		assertThat(newZip.exists(), Is.is(false));
+		if(newZip.exists()) {
+			deleteBetweenTests();
+		}
 		// we call createFolder to create the zip as a folder
 		newZip.createFolder();
 		FileObject fileA = newZip.resolveFile(TestConstants.FILE_A_NAME);
