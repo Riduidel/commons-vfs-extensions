@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>fr.perigee</groupId>
 		<artifactId>commons-vfs-extensions</artifactId>
-		<version>0.0.3-SNAPSHOT</version>
+		<version>0.0.4</version>
 		<relativePath>..</relativePath>
 	</parent>
 	<artifactId>commons-vfs-webdav-sardine</artifactId>
