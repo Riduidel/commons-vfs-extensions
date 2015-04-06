@@ -20,8 +20,8 @@ import org.apache.commons.vfs2.provider.AbstractFileObject;
 import org.apache.commons.vfs2.provider.AbstractFileSystem;
 import org.apache.commons.vfs2.util.MonitorOutputStream;
 
-import com.googlecode.sardine.DavResource;
-import com.googlecode.sardine.Sardine;
+import com.github.sardine.DavResource;
+import com.github.sardine.Sardine;
 
 public class WebdavFileObject extends AbstractFileObject implements FileObject {
 	/**

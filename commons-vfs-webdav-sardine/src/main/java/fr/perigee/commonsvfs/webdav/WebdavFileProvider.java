@@ -18,9 +18,9 @@ import org.apache.commons.vfs2.util.UserAuthenticatorUtils;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import com.googlecode.sardine.Sardine;
-import com.googlecode.sardine.SardineFactory;
-import com.googlecode.sardine.impl.SardineImpl;
+import com.github.sardine.Sardine;
+import com.github.sardine.SardineFactory;
+import com.github.sardine.impl.SardineImpl;
 
 /**
  * Sardine-backed Webdav file provider

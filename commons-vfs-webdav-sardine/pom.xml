@@ -14,19 +14,9 @@
 			<artifactId>commons-vfs2</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.googlecode.sardine</groupId>
+			<groupId>com.github.lookfirst</groupId>
 			<artifactId>sardine</artifactId>
-			<version>314</version>
+			<version>5.4</version>
 		</dependency>
 	</dependencies>
-	<repositories>
-		<repository>
-			<id>sardine-google-svn-repo</id>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<name>Sardine maven repo at Google Code</name>
-			<url>http://sardine.googlecode.com/svn/maven/</url>
-		</repository>
-	</repositories>
 </project>
